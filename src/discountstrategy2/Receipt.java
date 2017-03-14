@@ -14,10 +14,10 @@ public class Receipt {
     }
     
     private final Customer findCustomer(String customerId, ReceiptDataAccessStrategy data) {
-        return data.findCustomer(customerId, data);
+        return data.findCustomer(customerId);
     }
 
-    public final void createLineItem(String productId, double qty) {
+    public final void createLineItem(String productId, double qty, ReceiptDataAccessStrategy data) {
         LineItem lineItem = new LineItem(productId, qty, data);
         // add lineItem to new lineItems[]
     }

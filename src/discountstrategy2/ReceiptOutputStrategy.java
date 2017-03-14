@@ -4,6 +4,6 @@ package discountstrategy2;
  *
  * @author Tatum Thomas
  */
-public class ReceiptOutputStrategy {
-
+public interface ReceiptOutputStrategy {
+    public void printReceipt(final Receipt receipt);
 }

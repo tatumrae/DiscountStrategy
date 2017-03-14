@@ -11,12 +11,12 @@ public class Startup {
      */
     public static void main(String[] args) {
         ReceiptDataAccessStrategy data = new InMemoryAccessStrategy();
-        ReceiptOutputStrategy receipt = new ConsoleOutput();
+        ReceiptOutputStrategy receipt = new ConsoleReceiptOutput();
         
         PosTerminal pos = new PosTerminal();
         
-        pos.startSale("2002486", data);
-        pos.addItemToSale("A101", 1);
+        pos.startSale("100", data);
+        pos.addItemToSale("A101", 1, data);
         pos.endSale(receipt);
     }
     

@@ -1,7 +1,7 @@
 package discountstrategy2;
 
 
-public class InMemoryDataAccess implements ReceiptDataAccessStrategy {
+public class InMemoryAccessStrategy implements ReceiptDataAccessStrategy {
     // private DiscountStrategy discount;
     
     private Customer[] customers = {
@@ -22,6 +22,7 @@ public class InMemoryDataAccess implements ReceiptDataAccessStrategy {
      * @param custId - must not be null or empty
      * @return found Customer or null if not found or bad argument
      */
+    
     @Override
     public final Customer findCustomer(final String custId) {
         // validation is needed for method parameter

@@ -11,10 +11,10 @@ public class Product {
     private DiscountStrategy discount;
 
     public Product(String productId, String productName, double price, DiscountStrategy discount) {
-        this.productId = productId;
-        this.productName = productName;
-        this.price = price;
-        this.discount = discount;
+        setProductId(productId);
+        setProductName(productName);
+        setPrice(price);
+        setDiscountStrategy(discount);
     }
 
     public final String getProductId() {
@@ -41,11 +41,11 @@ public class Product {
         this.price = price;
     }
 
-    public final DiscountStrategy getDiscount() {
+    public final DiscountStrategy getDiscountStrategy() {
         return discount;
     }
 
-    public final void setDiscount(DiscountStrategy discount) {
+    public final void setDiscountStrategy(DiscountStrategy discount) {
         this.discount = discount;
     }
     

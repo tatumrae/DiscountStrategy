@@ -6,7 +6,7 @@ package discountstrategy2;
  */
 public interface ReceiptDataAccessStrategy {
     
-    public Customer findCustomer(String customerId, ReceiptDataAccessStrategy data);
-    public Product findProduct(String productId, ReceiptDataAccessStrategy data);
+    public Customer findCustomer(String customerId);
+    public Product findProduct(String productId);
     
 }
