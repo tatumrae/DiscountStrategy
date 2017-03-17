@@ -6,13 +6,12 @@ package discountstrategy2;
  */
 public class Customer {
     
-    // only utilizing customerId at this time
     private String customerId;
     private String name;
 
     public Customer(String customerId, String name) {
-        this.name = name;
-        this.customerId = customerId;
+        setName(name);
+        setCustomerId(customerId);
     }
 
     public String getCustomerId() {
@@ -20,7 +19,23 @@ public class Customer {
     }
 
     public void setCustomerId(String customerId) {
+        if (!customerId.equalsIgnoreCase("Not Provided") && customerId.length() != 3) {
+            throw new IllegalArgumentException("Customer ID can only be 3 digits");
+        }
         this.customerId = customerId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        if (name == null || name.length() == 0) {
+            throw new IllegalArgumentException("Customer name is null or empty");
+        } else if (name.length() < 2) {
+            throw new IllegalArgumentException("Customer name less than 2 characters");
+        }
+        this.name = name;
     }
 
     

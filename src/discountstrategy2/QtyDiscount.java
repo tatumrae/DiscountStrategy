@@ -6,35 +6,44 @@ package discountstrategy2;
  */
 public class QtyDiscount implements DiscountStrategy{
     private double percentDiscount;
-    private double qty;
+    private double qtyRequiredForDiscount;
+    private double qtyPurchased;
 
-    public QtyDiscount(double percentDiscount, double qty) {
+    public QtyDiscount(double percentDiscount, double qtyRequiredForDiscount) {
         setPercentDiscount(percentDiscount);
-        setQty(qty);
+        setQtyRequiredForDiscount(qtyRequiredForDiscount);
     }
-    
-    
 
-    public double getPercentDiscount() {
+    public final double getPercentDiscount() {
         return percentDiscount;
     }
 
-    public void setPercentDiscount(double percentDiscount) {
+    public final void setPercentDiscount(double percentDiscount) {
         this.percentDiscount = percentDiscount;
     }
 
-    public double getQty() {
-        return qty;
+    public final double getQtyRequiredForDiscount() {
+        return qtyRequiredForDiscount;
     }
 
-    public void setQty(double qty) {
-        this.qty = qty;
+    public final void setQtyRequiredForDiscount(double qtyRequiredForDiscount) {
+        this.qtyRequiredForDiscount = qtyRequiredForDiscount;
     }
-    
-    
-    
+
+    public final double getQtyPurchased() {
+        return qtyPurchased;
+    }
+
+    public final void setQtyPurchased(double qtyPurchased) {
+        this.qtyPurchased = qtyPurchased;
+    }
+
     @Override
-    public double getDiscountAmount(double price) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public final double getDiscountAmount(double qtyPurchased, double price) {
+        if (qtyPurchased >= getQtyRequiredForDiscount()) {
+            return qtyPurchased * price * getPercentDiscount();
+        } else {
+            return 0;
+        }
     }
 }

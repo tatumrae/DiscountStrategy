@@ -7,29 +7,31 @@ package discountstrategy2;
 public class LineItem {
     private Product product;
     private double qty;
+    //private DecimalFormatter decimalFormatter;
 
-    public LineItem(String productId, double qty, ReceiptDataAccessStrategy data) {
-        product = findProduct(productId, data);
-        this.qty = qty;
+    public LineItem(String productId, double qty, ReceiptDataAccessStrategy dataBase) {
+        product = findProduct(productId, dataBase);
+        setQty(qty);
     }
 
-    private Product findProduct(String productId, ReceiptDataAccessStrategy data){
-        return data.findProduct(productId);
+    private final Product findProduct(String productId, ReceiptDataAccessStrategy dataBase){
+        return dataBase.findProduct(productId);
     }
     
-    public String getLineItemData() {
+    public final String getLineItemData() {
+        //decimalFormatter = new DecimalFormatter();
         String lineItemData = "";
-        lineItemData += product.getProductId() + " ";
-        lineItemData += product.getProductName() + " ";
-        lineItemData += product.getPrice() + " ";
-        lineItemData += getQty() + " ";
-        lineItemData += calculateSubTotal() + " ";
-        lineItemData += getDiscountAmount();
+        lineItemData += String.format("%-10s", product.getProductId());
+        lineItemData += String.format("%-20s", product.getProductName());
+        lineItemData += "$" + String.format("%-10.2f", product.getPrice());
+        lineItemData += String.format("%-8.0f", getQty());
+        lineItemData += "$" + String.format("%-12.2f", calculateSubTotal());
+        lineItemData += "$" + String.format("%-10.2f", getDiscountAmount());
         
         return lineItemData;
     }
     
-    public double calculateSubTotal(){
+    public final double calculateSubTotal(){
         double subtotal = product.getPrice() * getQty();
         return subtotal;
     }
@@ -38,20 +40,20 @@ public class LineItem {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public final void setProduct(Product product) {
         this.product = product;
     }
 
-    public double getQty() {
+    public final double getQty() {
         return qty;
     }
 
-    public void setQty(double qty) {
+    public final void setQty(double qty) {
         this.qty = qty;
     }
     
-    public double getDiscountAmount() {
-        double discountAmount = product.getPrice() * product.getDiscountStrategy().getDiscountAmount(getQty());
+    public final double getDiscountAmount() {
+        double discountAmount = product.getDiscountStrategy().getDiscountAmount(getQty(), product.getPrice());
         return discountAmount;
     }
     
