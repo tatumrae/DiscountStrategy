@@ -1,6 +1,5 @@
 package discountstrategy2;
 
-
 public class ConsoleReceiptOutput implements ReceiptOutputStrategy {
 
     public ConsoleReceiptOutput() {
@@ -8,7 +7,12 @@ public class ConsoleReceiptOutput implements ReceiptOutputStrategy {
 
     @Override
     public void printReceipt(Receipt receipt) {
-        System.out.println(receipt);
+        if (receipt == null) {
+            throw new IllegalArgumentException("Receipt cannot be null when printing to the console");
+        } else {
+            System.out.println(receipt);
+        }
+
     }
 
 }

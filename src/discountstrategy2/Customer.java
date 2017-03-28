@@ -34,7 +34,7 @@ public class Customer {
             throw new IllegalArgumentException("Customer name is null or empty");
         } else if (name.length() < 2) {
             throw new IllegalArgumentException("Customer name less than 2 characters");
-        }
+        } 
         this.name = name;
     }
 

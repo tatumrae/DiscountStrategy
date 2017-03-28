@@ -2,7 +2,6 @@ package discountstrategy2;
 
 import javax.swing.JOptionPane;
 
-
 public class JOptionPaneReceiptOutput implements ReceiptOutputStrategy {
 
     public JOptionPaneReceiptOutput() {
@@ -10,7 +9,11 @@ public class JOptionPaneReceiptOutput implements ReceiptOutputStrategy {
 
     @Override
     public void printReceipt(Receipt receipt) {
-        JOptionPane.showMessageDialog(null, receipt);
+        if (receipt == null) {
+            throw new IllegalArgumentException("Receipt cannot be null when using JOptionPane");
+        } else {
+            JOptionPane.showMessageDialog(null, receipt);
+        }
     }
 
 }
