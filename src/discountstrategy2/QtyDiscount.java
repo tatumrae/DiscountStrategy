@@ -19,9 +19,9 @@ public class QtyDiscount implements DiscountStrategy {
         return percentDiscount;
     }
 
-    public final void setPercentDiscount(double percentDiscount) {
+    public final void setPercentDiscount(double percentDiscount) throws IllegalArgumentException{
         if (percentDiscount < 0 || percentDiscount > 100) {
-            throw new IllegalArgumentException("Disount amount must be between 0 and 100");
+            throw new InvalidDiscountPercentageException();
         }
         this.percentDiscount = percentDiscount;
     }
@@ -30,9 +30,9 @@ public class QtyDiscount implements DiscountStrategy {
         return qtyRequiredForDiscount;
     }
 
-    public final void setQtyRequiredForDiscount(double qtyRequiredForDiscount) {
+    public final void setQtyRequiredForDiscount(double qtyRequiredForDiscount) throws IllegalArgumentException{
         if (qtyRequiredForDiscount < 0) {
-            throw new IllegalArgumentException("Quantity Required For Discount cannot be less than 0");
+            throw new InvalidQuantityException();
         }
 
         this.qtyRequiredForDiscount = qtyRequiredForDiscount;
@@ -42,9 +42,9 @@ public class QtyDiscount implements DiscountStrategy {
         return qtyPurchased;
     }
 
-    public final void setQtyPurchased(double qtyPurchased) {
+    public final void setQtyPurchased(double qtyPurchased) throws IllegalArgumentException{
         if (qtyPurchased < 0) {
-            throw new IllegalArgumentException("Invalid qtyPurchased amount");
+            throw new InvalidQuantityException();
         }
         this.qtyPurchased = qtyPurchased;
     }

@@ -15,7 +15,7 @@ public class LineItem {
         setQty(qty);
     }
 
-    private final Product findProduct(String productId, ReceiptDataAccessStrategy dataBase) {
+    private final Product findProduct(String productId, ReceiptDataAccessStrategy dataBase) throws IllegalArgumentException{
         if (productId == null || productId.isEmpty()) {
             throw new IllegalArgumentException("ProductId is missing when creating LineItem");
         } else if (dataBase == null) {
@@ -46,7 +46,7 @@ public class LineItem {
         return product;
     }
 
-    public final void setProduct(Product product) {
+    public final void setProduct(Product product) throws IllegalArgumentException {
         if (product == null) {
             throw new IllegalArgumentException("Missing product for LineItem");
         } else {
@@ -59,9 +59,9 @@ public class LineItem {
         return qty;
     }
 
-    public final void setQty(double qty) {
+    public final void setQty(double qty) throws IllegalArgumentException{
         if (qty < 1 || qty > 1000) {
-            throw new IllegalArgumentException("Quantity needs to be between 1 and 1000");
+            throw new InvalidQuantityException();
         } else {
             this.qty = qty;
         }

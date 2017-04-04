@@ -22,7 +22,7 @@ public class Product {
     }
 
 
-    public final void setProductId(String productId) {
+    public final void setProductId(String productId) throws IllegalArgumentException{
         if (productId == null || productId.length() != 4) {
             throw new IllegalArgumentException("Product ID can only be 4 digits");
         }
@@ -33,9 +33,9 @@ public class Product {
         return productName;
     }
 
-    public final void setProductName(String productName) {
+    public final void setProductName(String productName) throws IllegalArgumentException{
         if (productName == null || productName.length() == 0) {
-            throw new IllegalArgumentException("Product name is null or empty");
+            throw new MandatoryStringException();
         } else if (productName.length() < 2) {
             throw new IllegalArgumentException("Product name less than 2 characters");
         }
@@ -48,7 +48,7 @@ public class Product {
 
     public final void setPrice(double price) {
         if (price <= 0) {
-            throw new IllegalArgumentException("Price is less than 0.");
+            throw new InvalidPriceException();
         }
         this.price = price;
     }
@@ -57,7 +57,7 @@ public class Product {
         return discount;
     }
 
-    public final void setDiscountStrategy(DiscountStrategy discount) {
+    public final void setDiscountStrategy(DiscountStrategy discount) throws IllegalArgumentException{
         if (discount == null) {
             throw new IllegalArgumentException("Missing discount type");
         }

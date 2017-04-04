@@ -9,19 +9,19 @@ public class PercentOffDiscount implements DiscountStrategy {
     private int qtyPurchased;
     private double percentDiscount;
 
-    public PercentOffDiscount(double percentDiscount) {
+    public PercentOffDiscount(double percentDiscount) throws IllegalArgumentException{
         if (percentDiscount < 0 || percentDiscount > 100) {
-            throw new IllegalArgumentException("Discount Percent must be between 0 and 100");
+            throw new InvalidDiscountPercentageException();
         }
         setPercentDiscount(percentDiscount);
     }
 
     @Override
-    public final double getDiscountAmount(double qtyPurchased, double price) {
+    public final double getDiscountAmount(double qtyPurchased, double price) throws IllegalArgumentException {
         if (qtyPurchased < 1 || qtyPurchased > 1000) {
-            throw new IllegalArgumentException("Quantity needs to be between 1 and 1000");
+            throw new InvalidQuantityException();
         } else if (price <= 0) {
-            throw new IllegalArgumentException("Price cannot be less than or equal to $0.00");
+            throw new InvalidPriceException();
         }
         return price * getPercentDiscount() * qtyPurchased;
     }
@@ -30,9 +30,9 @@ public class PercentOffDiscount implements DiscountStrategy {
         return qtyPurchased;
     }
 
-    public final void setQtyPurchased(int qtyPurchased) {
-        if (qtyPurchased < 0) {
-            throw new IllegalArgumentException("Invalid qtyPurchased amount");
+    public final void setQtyPurchased(int qtyPurchased) throws IllegalArgumentException {
+        if (qtyPurchased < 1 || qtyPurchased > 1000) {
+            throw new InvalidPriceException();
         }
         this.qtyPurchased = qtyPurchased;
     }
@@ -41,9 +41,9 @@ public class PercentOffDiscount implements DiscountStrategy {
         return percentDiscount;
     }
 
-    public final void setPercentDiscount(double percentDiscount) {
+    public final void setPercentDiscount(double percentDiscount) throws IllegalArgumentException {
         if (percentDiscount < 0 || percentDiscount > 100) {
-            throw new IllegalArgumentException("Disount amount must be between 0 and 100");
+            throw new InvalidDiscountPercentageException();
         }
         this.percentDiscount = percentDiscount;
     }

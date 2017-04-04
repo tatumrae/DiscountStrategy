@@ -18,7 +18,7 @@ public class Customer {
         return customerId;
     }
 
-    public void setCustomerId(String customerId) {
+    public void setCustomerId(String customerId) throws IllegalArgumentException{
         if (!customerId.equalsIgnoreCase("Not Provided") && customerId.length() != 3) {
             throw new IllegalArgumentException("Customer ID can only be 3 digits");
         }
@@ -29,7 +29,7 @@ public class Customer {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws IllegalArgumentException{
         if (name == null || name.length() == 0) {
             throw new IllegalArgumentException("Customer name is null or empty");
         } else if (name.length() < 2) {

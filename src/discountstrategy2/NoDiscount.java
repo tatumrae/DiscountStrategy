@@ -8,11 +8,11 @@ public class NoDiscount implements DiscountStrategy {
     }
     
     @Override
-    public double getDiscountAmount(double qtyPurchased, double price) {
+    public double getDiscountAmount(double qtyPurchased, double price) throws IllegalArgumentException{
         if (qtyPurchased < 1 || qtyPurchased > 1000) {
-            throw new IllegalArgumentException("Quantity needs to be between 1 and 1000");
+            throw new InvalidQuantityException();
         } else if (price <= 0) {
-            throw new IllegalArgumentException("Price cannot be less than or equal to $0.00");
+            throw new InvalidPriceException();
         }
         return NO_DISCOUNT;
     }

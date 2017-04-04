@@ -8,7 +8,7 @@ public class JOptionPaneReceiptOutput implements ReceiptOutputStrategy {
     }
 
     @Override
-    public void printReceipt(Receipt receipt) {
+    public void printReceipt(Receipt receipt) throws IllegalArgumentException{
         if (receipt == null) {
             throw new IllegalArgumentException("Receipt cannot be null when using JOptionPane");
         } else {

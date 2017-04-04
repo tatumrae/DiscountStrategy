@@ -26,7 +26,7 @@ public class Receipt {
 
     }
 
-    private final Customer findCustomer(String customerId, ReceiptDataAccessStrategy dataBase) {
+    private final Customer findCustomer(String customerId, ReceiptDataAccessStrategy dataBase) throws IllegalArgumentException{
         if (dataBase == null) {
             throw new IllegalArgumentException("dataBase cannot be null");
         } else {
@@ -35,13 +35,13 @@ public class Receipt {
 
     }
 
-    public final void createLineItem(String productId, double qty, ReceiptDataAccessStrategy dataBase) {
+    public final void createLineItem(String productId, double qty, ReceiptDataAccessStrategy dataBase) throws IllegalArgumentException{
         if (productId == null || productId.length() == 0) {
             throw new IllegalArgumentException("productId is null or empty");
         } else if (dataBase == null) {
             throw new IllegalArgumentException("dataBase is null");
         } else if (qty < 0) {
-            throw new IllegalArgumentException("qty cannot be a negative number");
+            throw new InvalidQuantityException();
         } else {
             LineItem lineItem = new LineItem(productId, qty, dataBase);
             addToArray(lineItem);
@@ -49,7 +49,7 @@ public class Receipt {
 
     }
 
-    private final void addToArray(final LineItem item) {
+    private final void addToArray(final LineItem item) throws IllegalArgumentException{
         if (item == null) {
             throw new IllegalArgumentException("Item being added to LineItem array is null");
         } else {
@@ -62,7 +62,7 @@ public class Receipt {
     }
 
     @Override
-    public final String toString() {
+    public final String toString() throws IllegalArgumentException{
         receiptFormatter = new ReceiptFormatter();
         if (this == null) {
             throw new IllegalArgumentException("Receipt cannot be null");
@@ -76,14 +76,14 @@ public class Receipt {
         return transactionId;
     }
 
-    public final void setTransactionId(int transactionId) {
+    public final void setTransactionId(int transactionId) throws IllegalArgumentException{
         if (transactionId <= 0) {
             throw new IllegalArgumentException("Invalid transactionId");
         }
         this.transactionId = transactionId;
     }
 
-    public final double calcTotalDue(double netTotal, double totalSaved) {
+    public final double calcTotalDue(double netTotal, double totalSaved) throws IllegalArgumentException{
         if (netTotal < 0 || totalSaved < 0) {
             throw new IllegalArgumentException("NetTotal or TotalSaved is less than zero");
         } else if (netTotal < totalSaved) {
@@ -96,7 +96,7 @@ public class Receipt {
         return lineItems;
     }
 
-    public void setLineItems(LineItem[] lineItems) {
+    public void setLineItems(LineItem[] lineItems) throws IllegalArgumentException{
         if (lineItems.length == 0) {
             throw new IllegalArgumentException("LineItem array is not populated.");
         } else {
@@ -108,7 +108,7 @@ public class Receipt {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(Customer customer) throws IllegalArgumentException{
         if (customer == null) {
             throw new IllegalArgumentException("Customer is missing");
         } else {
@@ -121,7 +121,7 @@ public class Receipt {
         return totalDue;
     }
 
-    public void setTotalDue(double totalDue) {
+    public void setTotalDue(double totalDue) throws IllegalArgumentException{
         if (totalDue < 0) {
             throw new IllegalArgumentException("totalDue cannot be negative number.");
         } else {
@@ -134,7 +134,7 @@ public class Receipt {
         return totalSaved;
     }
 
-    public void setTotalSaved(double totalSaved) {
+    public void setTotalSaved(double totalSaved) throws IllegalArgumentException{
         if (totalSaved < 0) {
             throw new IllegalArgumentException("totalSaved cannot be a negative number.");
         } else {
@@ -146,7 +146,7 @@ public class Receipt {
         return netTotal;
     }
 
-    public void setNetTotal(double netTotal) {
+    public void setNetTotal(double netTotal) throws IllegalArgumentException{
         if (netTotal < 0) {
             throw new IllegalArgumentException("netTotal cannot be a negative number.");
         } else {
