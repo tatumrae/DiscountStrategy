@@ -8,6 +8,7 @@ public class PercentOffDiscount implements DiscountStrategy {
 
     private int qtyPurchased;
     private double percentDiscount;
+    private Validator validator = new NumericRangeValidator();
 
     public PercentOffDiscount(double percentDiscount) throws IllegalArgumentException{
         if (percentDiscount < 0 || percentDiscount > 100) {
@@ -31,10 +32,14 @@ public class PercentOffDiscount implements DiscountStrategy {
     }
 
     public final void setQtyPurchased(int qtyPurchased) throws IllegalArgumentException {
-        if (qtyPurchased < 1 || qtyPurchased > 1000) {
-            throw new InvalidPriceException();
-        }
-        this.qtyPurchased = qtyPurchased;
+//        if (qtyPurchased < 1 || qtyPurchased > 1000) {
+//            throw new InvalidPriceException();
+//        }
+//        this.qtyPurchased = qtyPurchased;
+            Object[] objArray = {new Integer(qtyPurchased),new Integer(1), new Integer(1000)};
+          if (!validator.isValid(objArray)) {
+              throw new InvalidPriceException();
+          }
     }
 
     public final double getPercentDiscount() {
