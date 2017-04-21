@@ -1,5 +1,7 @@
 package discountstrategy2;
 
+import edu.wctc.trt.date.DateUtilities;
+
 /**
  *
  * @author Tatum Thomas
@@ -7,9 +9,11 @@ package discountstrategy2;
 public class PosTerminal {
 
     private Receipt receipt;
+    private DateUtilities dateUtilities;
     //private int transactionId = 0;
 
-    public PosTerminal() {
+    public PosTerminal(DateUtilities dateUtilities) {
+        setDateUtilities(dateUtilities);
     }
 
     public final void startSale(String customerId, ReceiptDataAccessStrategy dataBase) throws IllegalArgumentException{
@@ -18,7 +22,7 @@ public class PosTerminal {
         } else if (dataBase == null) {
             throw new IllegalArgumentException("DataBase cannot be null when creating a new sale");
         }
-        receipt = new Receipt(customerId, dataBase);
+        receipt = new Receipt(customerId, dataBase, dateUtilities);
 
     }
 
@@ -43,6 +47,19 @@ public class PosTerminal {
         }
         this.receipt = receipt;
     }
+
+    public DateUtilities getDateUtilities() {
+        return dateUtilities;
+    }
+
+    public void setDateUtilities(DateUtilities dateUtilities) throws IllegalArgumentException {
+        if (dateUtilities == null) {
+            throw new IllegalArgumentException("dateUtilities cannot be null");
+        }
+        this.dateUtilities = dateUtilities;
+    }
+    
+    
 
     public final void endSale(ReceiptOutputStrategy output, ReceiptOutputStrategy output2) throws IllegalArgumentException{
         if (output == null) {

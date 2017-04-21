@@ -10,9 +10,9 @@ public class ReceiptFormatter {
 
     }
 
-    public String formatText(Receipt receipt, double netTotal, double totalSaved) {
+    public String formatText(Receipt receipt, String dateAndTime, double netTotal, double totalSaved) {
         String data = "";
-        data += "Date: 3/11/2017\n";
+        data += "Date: " + receipt.getTodaysDateAndCurrentTime() + "\n";
         data += "Customer Name: " + receipt.getCustomer().getName() + "\n";
         data += "Customer ID: " + receipt.getCustomer().getCustomerId() + "\n";
         data += "Transaction No: " + String.format("%04d", receipt.getTransactionId()) + "\n\n";

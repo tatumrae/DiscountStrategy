@@ -1,5 +1,7 @@
 package discountstrategy2;
 
+import edu.wctc.trt.date.DateUtilities;
+
 /**
  *
  * @author Tatum Thomas
@@ -12,15 +14,18 @@ public class Receipt {
     private double totalDue = 0;
     private double totalSaved = 0;
     private double netTotal = 0;
+    private String todaysDateAndCurrentTime;
     private static int transactionId = 0;
     private ReceiptFormatter receiptFormatter;
+    private DateUtilities dateUtilities;
 
-    public Receipt(String customerId, ReceiptDataAccessStrategy dataBase) {
+    public Receipt(String customerId, ReceiptDataAccessStrategy dataBase, DateUtilities dateUtilities) {
         if (!customerId.isEmpty()) {
             customer = findCustomer(customerId, dataBase);
         } else {
             customer = new Customer("Not Provided", "Not Provided");
         }
+        setTodaysDateAndCurrentTime(dateUtilities.getTodaysDateAndCurrentTime());
         lineItems = new LineItem[0];
         transactionId += 1;
 
@@ -67,7 +72,7 @@ public class Receipt {
         if (this == null) {
             throw new IllegalArgumentException("Receipt cannot be null");
         } else {
-            return receiptFormatter.formatText(this, netTotal, totalSaved);
+            return receiptFormatter.formatText(this, todaysDateAndCurrentTime, netTotal, totalSaved);
         }
 
     }
@@ -116,6 +121,16 @@ public class Receipt {
         }
 
     }
+
+    public String getTodaysDateAndCurrentTime() {
+        return todaysDateAndCurrentTime;
+    }
+
+    public void setTodaysDateAndCurrentTime(String todaysDateAndCurrentTime) {
+        this.todaysDateAndCurrentTime = todaysDateAndCurrentTime;
+    }
+    
+    
 
     public double getTotalDue() {
         return totalDue;

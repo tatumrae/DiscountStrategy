@@ -1,5 +1,7 @@
 package discountstrategy2;
 
+import edu.wctc.trt.date.DateUtilities;
+
 /**
  *
  * @author tatum
@@ -13,8 +15,9 @@ public class Startup {
         ReceiptDataAccessStrategy dataBase = new InMemoryAccessStrategy();
         ReceiptOutputStrategy output = new ConsoleReceiptOutput();
         ReceiptOutputStrategy output2 = new JOptionPaneReceiptOutput();
+        DateUtilities dateUtilities = new DateUtilities();
         
-        PosTerminal pos = new PosTerminal();
+        PosTerminal pos = new PosTerminal(dateUtilities);
         
         pos.startSale("200", dataBase);
         pos.addItemToSale("A101", 1, dataBase);
